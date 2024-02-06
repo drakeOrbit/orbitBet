@@ -21,7 +21,7 @@ import Link from 'next/link';
 
 type Props = {
   children: React.ReactNode;
-  session: Session | null;
+  session: any;
 };
 
 export default function Example({ children, session }: Props) {
