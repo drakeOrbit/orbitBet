@@ -27,7 +27,7 @@ const AdminSingleTablePage = async ({
 
   return (
     <div>
-      <UpdateTable session={session?.user.name} results={table} />
+      <UpdateTable session={'admin'} results={table} />
     </div>
   );
 };
