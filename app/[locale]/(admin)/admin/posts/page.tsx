@@ -17,7 +17,7 @@ const AdminPostsPage = async () => {
   const posts = await getData();
   return (
     <div>
-      <AdminPostContainer posts={posts} session={session?.user.name} />
+      <AdminPostContainer posts={posts} session={'admin'} />
     </div>
   );
 };
