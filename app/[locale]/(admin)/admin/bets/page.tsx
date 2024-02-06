@@ -19,7 +19,7 @@ const AdminBetsPage = async () => {
   return (
     <div>
       {coupons.map((coupon: BetsData, index: number) => (
-        <BetsTable coupon={coupon} key={index} session={session?.user.name} />
+        <BetsTable coupon={coupon} key={index} session={'admin'} />
       ))}
     </div>
   );
