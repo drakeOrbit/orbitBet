@@ -20,7 +20,7 @@ const UpdateTable = ({ results, session }: Props) => {
     setIsDeleting(true);
     try {
       const res = await fetch(
-        `${process.env.BASIC_URL}/api/tables?id=${results._id}`,
+        `${process.env.NEXT_PUBLIC_BASIC_URL}/api/tables?id=${results._id}`,
         {
           method: 'DELETE',
           headers: {
@@ -68,20 +68,23 @@ const UpdateTable = ({ results, session }: Props) => {
   // SUBMITTIN FORM
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log('Güncellenen Tips:', tips);
+    console.log('Güncellenen Tips:', tips);
 
     const data = {
       id: results._id,
       tips: tips,
     };
 
-    const res = await fetch(`${process.env.BASIC_URL}/api/tables `, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASIC_URL}/api/tables `,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const content = await res.json();
     if (content.success > 0) {
       router.push('/admin/dashboard');
