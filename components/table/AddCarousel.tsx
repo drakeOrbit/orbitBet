@@ -85,20 +85,26 @@ export default PostAddCarousel;
 const carouselContent = [
   {
     id: 1,
-    title: 'Slotella',
+    title: 'ADD - 1',
     link: 'https://www.google.com',
-    image: '/adds/add1.jpeg',
+    image: '/adds/reklam1.webp',
   },
   {
     id: 2,
-    title: 'DellaBet',
+    title: 'ADD - 2',
     link: 'https://www.google.com',
-    image: '/adds/add2.png',
+    image: '/adds/reklam2.webp',
   },
   {
     id: 3,
-    title: 'PortoBet',
+    title: 'ADD - 3',
     link: 'https://www.google.com',
-    image: '/adds/add3.jpeg',
+    image: '/adds/reklam1.webp',
+  },
+  {
+    id: 4,
+    title: 'ADD - 4',
+    link: 'https://www.google.com',
+    image: '/adds/reklam2.webp',
   },
 ];
