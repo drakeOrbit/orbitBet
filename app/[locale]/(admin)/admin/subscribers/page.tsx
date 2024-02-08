@@ -1,33 +1,57 @@
-import AdminSubscribersWrapper from '@/components/subscribe/AdminSubscribersWrapper';
-import auth from '@/lib/auth';
-import { getServerSession } from 'next-auth';
-import React, { Suspense } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 
-const getSubscribersData = async () => {
-  const res = await fetch(`${process.env.BASIC_URL}/api/subscribers`, {
-    next: { revalidate: 3600 },
-  });
+const AdminSubscribersPage = () => {
+  const [subscribers, setSubscribers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [total, setTotal] = useState<number | string>();
 
-  if (!res.ok) {
-    throw new Error('Something went wrong');
-  }
+  useEffect(() => {
+    const fetchSubscribers = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASIC_URL}/api/subscribers`
+        );
+        if (!res.ok) {
+          throw new Error('Something went wrong');
+        }
+        const data = await res.json();
+        setSubscribers(data.subscribers);
+        setTotal(data.total);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  return res.json();
-};
-
-const AdminSubscribersPage = async () => {
-  const subscribers = await getSubscribersData();
+    fetchSubscribers();
+  }, []);
 
   return (
-    <Suspense
-      fallback={
-        <div className="h-screen w-full flex items-center justify-center">
-          <div className="text-center">Loading...</div>
-        </div>
-      }
-    >
-      <AdminSubscribersWrapper data={subscribers} />
-    </Suspense>
+    <div>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error: {error}</div>}
+      {!isLoading && !error && (
+        <>
+          <h2 className="text-center text-2xl font-bold">
+            Subscribers - Total: {total}
+          </h2>
+
+          <div className="flex justify-center">
+            <ul className="my-8 space-y-2 ">
+              {subscribers.map((subscriber: SubscriberData) => (
+                <li className=" list-item list-disc" key={subscriber._id}>
+                  {subscriber.email}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 

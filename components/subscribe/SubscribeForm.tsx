@@ -22,8 +22,15 @@ const SubscribeForm = () => {
   const [email, setEmail] = useState('');
   const [isExist, setIsExist] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
 
-  // CATCHING THE STATE OF THE FORM
+  // Email validation
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsEmailValid(emailRegex.test(email));
+  }, [email]);
+
+  // Handling form state
   useEffect(() => {
     if (state === 'Subscriber saved successfully') {
       setShowMessage(true);
@@ -46,9 +53,13 @@ const SubscribeForm = () => {
     }
   }, [state]);
 
-  // SUBMITTIN THE FORM
+  // Handling form submission
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!isEmailValid) {
+      alert('Please enter a valid email address.');
+      return;
+    }
     console.log('formData', email);
     formAction(email);
   };
@@ -56,21 +67,22 @@ const SubscribeForm = () => {
   return (
     <div className="relative mt-2 rounded-md shadow-sm w-[90%] md:w-[80%]">
       <form onSubmit={handleSubmit}>
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 ">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
         </div>
         <input
           type="email"
           name="email"
-          className=" w-full rounded-md border-0 py-[7px] pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 outline-none sm:text-sm sm:leading-6"
+          className="w-full rounded-md border-0 py-[7px] pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 outline-none sm:text-sm sm:leading-6"
           placeholder="you@example.com"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
-        <div className=" absolute inset-y-0 right-0 flex items-center ">
+        <div className="absolute inset-y-0 right-0 flex items-center">
           <button
             type="submit"
-            className="h-full w-full text-white bg-orbitPurple px-2 md:px-4 rounded-r-md "
+            className="h-full w-full text-white bg-orbitPurple px-2 md:px-4 rounded-r-md"
+            disabled={!isEmailValid} // Disable button if email is not valid
           >
             Submit
           </button>
