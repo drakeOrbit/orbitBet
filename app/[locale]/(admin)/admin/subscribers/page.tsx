@@ -9,6 +9,7 @@ const AdminSubscribersPage = () => {
 
   useEffect(() => {
     const fetchSubscribers = async () => {
+      console.log('fetch subs--->');
       setIsLoading(true);
       try {
         const res = await fetch(
