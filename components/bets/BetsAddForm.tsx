@@ -8,6 +8,7 @@ import { useFormState } from 'react-dom';
 const BetsAddForm = () => {
   const [state, formAction] = useFormState(addBet, undefined);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // isSubmitting state'i eklendi
   const router = useRouter();
 
   // CATCHING THE STATE OF THE FORM
@@ -16,6 +17,7 @@ const BetsAddForm = () => {
       router.push('/admin/bets');
     } else if (state === 'An error was encountered while registering a bet') {
       setErrorMessage('An error occurred. Please try again.');
+      setIsSubmitting(false);
     }
   }, [state, router]);
 
@@ -77,6 +79,23 @@ const BetsAddForm = () => {
   // SUBMITTIN THE FORM
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // `date`, `versus`, ve `bets` alanlarının doluluğunu kontrol ederken aynı zamanda `odd` değerlerini de kontrol edin
+    const isValid = formData.matches.every(
+      (match) =>
+        match.date.trim() &&
+        match.versus.trim() &&
+        match.bets.trim() &&
+        match.odd >= 1
+    );
+
+    if (!isValid) {
+      setErrorMessage(
+        'Lütfen tüm alanları doğru bir şekilde doldurunuz. Oranlar 1 veya daha büyük olmalıdır.'
+      );
+      return; // Form gönderimini engelle
+    }
+    setIsSubmitting(true);
     formAction(formData);
   };
 
@@ -89,6 +108,9 @@ const BetsAddForm = () => {
           </h1>
           <h1 className="text-lg text-red-400">
             {`INFO: Maç kodu şuan önemsiz, boş bırakabilirsin`}
+          </h1>
+          <h1 className="text-lg text-red-400">
+            {`INFO: Kupon olusturup gönderdikten sonra yönlendirildiğiniz , Sayfayı F5 (yenileyin), bu sekilde kuponunuzu görebilirsiniz`}
           </h1>
           <div className="mt-10 grid grid-cols-1 gap-x6 gap-y-6 sm:grid-col-6">
             {/* BAHISCI ADI */}
@@ -105,6 +127,7 @@ const BetsAddForm = () => {
                 <option value="Drake">Drake</option>
                 <option value="Osman">Kazandıran Osman</option>
                 <option value="Tolga">Tutturan Tolga</option>
+                <option value="Muratcan">Bay Tahmin</option>
               </select>
             </div>
 
@@ -250,13 +273,16 @@ const BetsAddForm = () => {
           <button
             className="bg-green-500 text-white border-2 rounded-lg border-green-500 hover:text-green-300 p-2"
             type="submit"
+            disabled={isSubmitting}
           >
             Gönder
           </button>
         </div>
       </form>
       {errorMessage && (
-        <div className="mt-2 mb-4 text-center text-red-600 text-sm"> </div>
+        <div className="mt-2 mb-4 text-center text-red-600 text-sm">
+          {errorMessage}{' '}
+        </div>
       )}
     </>
   );

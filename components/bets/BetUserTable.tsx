@@ -28,23 +28,34 @@ const BetUserTable = ({ coupon }: Props) => {
   // ADVISOR CONFIGURATIONS
   let advisorName = ''; // Used for image string
   let advisorString = '';
+  let imageString = '';
 
   if (coupon.advisorName === 'Drake') {
     advisorName = 'Drake';
+    imageString = '/bets/Drake.png';
     advisorString =
       locale === 'tr' ? "Drake'in Kuponu" : "Drake's Betting Predictions";
   } else if (coupon.advisorName === 'Osman') {
     advisorName = 'Osman';
+    imageString = '/bets/Osman.png';
     advisorString =
       locale === 'tr'
         ? "Kazandıran Osman'ın Kuponu"
         : `Kazandıran Osman's Betting Predictions`;
   } else if (coupon.advisorName === 'Tolga') {
     advisorName = 'Tolga';
+    imageString = '/bets/Tolga.png';
     advisorString =
       locale === 'tr'
         ? "Tutturan Tolga'nın Kuponu"
         : `Tutturan Tolga's Betting Predictions`;
+  } else if (coupon.advisorName === 'Muratcan') {
+    advisorName = 'Muratcan';
+    imageString = '/bets/Muratcan.png';
+    advisorString =
+      locale === 'tr'
+        ? "Bay Tahmin'nin Kuponu"
+        : `Bay Tahmin's Betting Predictions`;
   }
 
   // Function to calculate total odds
@@ -73,7 +84,7 @@ const BetUserTable = ({ coupon }: Props) => {
             <div className="flex gap-6">
               <Image
                 className="w-[100px]"
-                src={`/bets/${advisorName}.png`}
+                src={imageString}
                 height={500}
                 width={500}
                 alt={advisorName + 'profil picture'}

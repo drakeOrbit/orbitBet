@@ -145,9 +145,9 @@ const Table = ({ results }: Props) => {
                         </th>
                         <th
                           scope="col"
-                          className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                          className="pl-2 py-3.5 text-left text-sm font-semibold text-white uppercase"
                         >
-                          <span className="sr-only">Pick</span>
+                          {locale === 'tr' ? 'Seçim' : 'Pick'}
                         </th>
                       </tr>
                     </thead>
@@ -173,7 +173,7 @@ const Table = ({ results }: Props) => {
                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
                               {item.tip}
                             </td>
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                            <td className="whitespace-nowrap pl-5  py-4 text-sm text-gray-300">
                               {item.odds}
                             </td>
                             <td
@@ -181,12 +181,12 @@ const Table = ({ results }: Props) => {
                                 item.win === 'win'
                                   ? 'text-orbitPurple'
                                   : 'text-orbitOrange',
-                                'whitespace-nowrap px-3 py-4 text-sm pl-7 '
+                                'whitespace-nowrap px-3 py-4 text-sm pl-8 '
                               )}
                             >
                               {item.result}
                             </td>
-                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium ">
                               <input
                                 className=" appearance-none w-4 h-4 bg-white border-[1.65px] rounded border-white checked:bg-orbitPurple cursor-pointer"
                                 type="checkbox"
