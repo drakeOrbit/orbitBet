@@ -73,6 +73,14 @@ export default async function middleware(req: NextRequest) {
     return intlMiddleware(req);
   }
 
+  if (
+    req.nextUrl.pathname.startsWith('/bets/') ||
+    req.nextUrl.pathname.startsWith('/en/bets/') ||
+    req.nextUrl.pathname.startsWith('/tr/bets/')
+  ) {
+    return intlMiddleware(req);
+  }
+
   const publicPathnameRegex = RegExp(
     `^(/(${locales.join('|')}))?(${publicPages
       .flatMap((p) => (p === '/' ? ['', '/'] : p))

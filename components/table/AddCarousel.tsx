@@ -71,7 +71,7 @@ const PostAddCarousel = ({ border }: Props) => {
               href={content.link}
               className="mt-16 w-[90%] text-sm lg:text-base lg:w-[60%] block mx-auto text-center glow-purple-hover-btn text-white bg-orbitPurple  p-2 rounded-xl font-semibold "
             >
-              Get Discont
+              {locale === 'tr' ? 'İncele' : 'Review'}
             </Link>
           </SwiperSlide>
         ))}
@@ -85,26 +85,20 @@ export default PostAddCarousel;
 const carouselContent = [
   {
     id: 1,
-    title: 'ADD - 1',
-    link: 'https://www.google.com',
-    image: '/adds/reklam1.webp',
+    title: 'Promosyon Kalem',
+    link: 'https://ekartvizit.co/urun/promosyon-kalem/',
+    image: '/adds/kartvizit1.jpg',
   },
   {
     id: 2,
-    title: 'ADD - 2',
-    link: 'https://www.google.com',
-    image: '/adds/reklam2.webp',
+    title: 'Kartvizit',
+    link: 'https://ekartvizit.co/urun/standart-kartvizit/',
+    image: '/adds/kartvizit2.jpg',
   },
   {
     id: 3,
-    title: 'ADD - 3',
-    link: 'https://www.google.com',
-    image: '/adds/reklam1.webp',
-  },
-  {
-    id: 4,
-    title: 'ADD - 4',
-    link: 'https://www.google.com',
-    image: '/adds/reklam2.webp',
+    title: 'Yelken Bayrak',
+    link: 'https://ekartvizit.co/urun/yelken-bayrak/',
+    image: '/adds/kartvizit3.jpg',
   },
 ];
